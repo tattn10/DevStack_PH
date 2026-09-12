@@ -6,11 +6,11 @@ const Banner = () => {
     
     return (
         <>
-        <div className="flex justify-between items-center  container mx-auto max-w-[90%] ">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center md:container md:mx-auto md:max-w-[90%] py-10 px-2 ">
 
-         <div className="flex flex-col gap-6 max-w-[50%]">
-         <h2 className="font-[Inter] text-6xl font-extrabold">Build Your Ideal <br/> <span className="font-[Inter] bg-gradient-to-r from-[#FF5722] via-[#D81B7E] to-[#7C3AED] bg-clip-text text-transparent ">Development Stack</span></h2>
-         <p>Explore frontend, backend, database, and tooling options,
+         <div className="flex flex-col gap-6 justify-center items-center md:items-start">
+         <h2 className="font-[Inter] text-6xl font-extrabold text-center md:text-left">Build Your Ideal <br/> <span className="font-[Inter] bg-gradient-to-r from-[#FF5722] via-[#D81B7E] to-[#7C3AED] bg-clip-text text-transparent ">Development Stack</span></h2>
+         <p className='text-center md:text-left'>Explore frontend, backend, database, and tooling options,
 compare them side by side, and put together the stack that fits your
 next project.</p>
     <div className="font-[Inter] text-[14px] flex gap-4 mt-6">
@@ -19,7 +19,7 @@ next project.</p>
      </div>
          </div>
 
-         <div className="max-w-[50%]">
+         <div className="">
      <img src={bannerImage} alt="Banner" />
          </div>
 

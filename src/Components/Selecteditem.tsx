@@ -1,6 +1,7 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
+import {  type Dispatch, type SetStateAction } from "react";
 import type { TechnologyType } from "../TechnologyType";
 import close from '../assets/images/close.png'
+import { toast } from "react-toastify";
 
 export interface SelecteditemProps {
     selecteditem: TechnologyType
@@ -13,6 +14,8 @@ const Selecteditem = ({ selecteditem, setSelectedTechs }: SelecteditemProps) => 
 
    const handleRemoveButton=(id:string)=>{
      setSelectedTechs(prev =>prev.filter(item=>item.id !== id))  
+     
+     toast.warning(`${selecteditem.name} is removed from your stack!!`);
      }
     return (
         <>

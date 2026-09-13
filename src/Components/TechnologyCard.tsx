@@ -1,23 +1,22 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import type { TechnologyType } from "../TechnologyType";
+import { toast } from "react-toastify";
 
 export interface TechnologyCardProps{
     technology: TechnologyType
+    selectedTechs:TechnologyType[]
     setSelectedTechs: Dispatch<SetStateAction<TechnologyType[]>>
 }
 
-const TechnologyCard = ({ technology, setSelectedTechs }: TechnologyCardProps) => {
-    const [buttonClicked, setButtonClicked] = useState(false);
+const TechnologyCard = ({ technology,selectedTechs, setSelectedTechs}: TechnologyCardProps) => {
+    const [isSelected, setIsSelected] = useState(false);
+  const handleAddToStack = () => {
+      setIsSelected(true);
+ toast.success(`${technology.name} is added to your stack!!!`);
 
-    const handleAddToStack = () => {
-      if (buttonClicked) return;
+setSelectedTechs([...selectedTechs,technology]);
 
-      setSelectedTechs((prevSelectedTechs) => {
-        const alreadySelected = prevSelectedTechs.some((item) => item.id === technology.id);
-        return alreadySelected ? prevSelectedTechs : [...prevSelectedTechs, technology];
-      });
 
-      setButtonClicked(true);
     };
 
     return (
@@ -71,9 +70,9 @@ const TechnologyCard = ({ technology, setSelectedTechs }: TechnologyCardProps) =
         onClick={handleAddToStack}
         type="button"
         className={`mt-4 w-full rounded-lg bg-[#080d1b] py-2.5 text-sm font-medium text-white transition hover:bg-gray-800`}
-        disabled={buttonClicked}
+        disabled={isSelected}
       >
-        {buttonClicked ? "Selected" : "Add to Stack"}
+        {isSelected ? "Added to your stack" : "Add to Stack"}
       </button>
     </div>
         

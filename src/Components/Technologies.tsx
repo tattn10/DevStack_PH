@@ -25,7 +25,7 @@ const TechnologiesSection = ({ TechnologiesProp }: TechnologiesProps) => {
             ))}
           </div>
           <div className="md:col-span-1 flex justify-center">
-            <SelectedTechs selectedTechs={selectedTechs} />
+            <SelectedTechs selectedTechs={selectedTechs} setSelectedTechs={setSelectedTechs} />
           </div>
         </div>
       </main>

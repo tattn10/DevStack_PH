@@ -1,11 +1,25 @@
+import { useState, type Dispatch, type SetStateAction } from "react";
 import type { TechnologyType } from "../TechnologyType";
 
 export interface TechnologyCardProps{
     technology: TechnologyType
+    setSelectedTechs: Dispatch<SetStateAction<TechnologyType[]>>
 }
 
-const TechnologyCard = ({ technology }: TechnologyCardProps) => {
-    
+const TechnologyCard = ({ technology, setSelectedTechs }: TechnologyCardProps) => {
+    const [buttonClicked, setButtonClicked] = useState(false);
+
+    const handleAddToStack = () => {
+      if (buttonClicked) return;
+
+      setSelectedTechs((prevSelectedTechs) => {
+        const alreadySelected = prevSelectedTechs.some((item) => item.id === technology.id);
+        return alreadySelected ? prevSelectedTechs : [...prevSelectedTechs, technology];
+      });
+
+      setButtonClicked(true);
+    };
+
     return (
 
         <>
@@ -54,10 +68,12 @@ const TechnologyCard = ({ technology }: TechnologyCardProps) => {
       </div>
 
       <button
+        onClick={handleAddToStack}
         type="button"
-        className="mt-4 w-full rounded-lg bg-[#080d1b] py-2.5 text-sm font-medium text-white transition hover:bg-gray-800"
+        className={`mt-4 w-full rounded-lg bg-[#080d1b] py-2.5 text-sm font-medium text-white transition hover:bg-gray-800`}
+        disabled={buttonClicked}
       >
-        Add to Stack
+        {buttonClicked ? "Selected" : "Add to Stack"}
       </button>
     </div>
         

@@ -1,5 +1,5 @@
 import type { TechnologyType } from "../TechnologyType";
-import { use } from "react";
+import { use, useState } from "react";
 import TechnologyCard from "./TechnologyCard";
 import SelectedTechs from "./SelectedTechs";
 
@@ -9,6 +9,7 @@ export interface TechnologiesProps {
 
 const TechnologiesSection = ({ TechnologiesProp }: TechnologiesProps) => {
   const technologies = use(TechnologiesProp);
+  const [selectedTechs, setSelectedTechs] = useState<TechnologyType[]>([]);
 
   return (
     <>
@@ -20,11 +21,11 @@ const TechnologiesSection = ({ TechnologiesProp }: TechnologiesProps) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:col-span-3">
             {technologies.map((technology) => (
-              <TechnologyCard key={technology.id} technology={technology} />
+              <TechnologyCard key={technology.id} technology={technology} setSelectedTechs={setSelectedTechs} />
             ))}
           </div>
           <div className="md:col-span-1 flex justify-center">
-            <SelectedTechs />
+            <SelectedTechs selectedTechs={selectedTechs} />
           </div>
         </div>
       </main>

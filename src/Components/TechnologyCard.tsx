@@ -1,29 +1,27 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
 import type { TechnologyType } from "../TechnologyType";
 import { toast } from "react-toastify";
 
-export interface TechnologyCardProps{
-    technology: TechnologyType
-    selectedTechs:TechnologyType[]
-    setSelectedTechs: Dispatch<SetStateAction<TechnologyType[]>>
+export interface TechnologyCardProps {
+  technology: TechnologyType;
+  selectedTechs: TechnologyType[];
+  onAddTechnology: (technology: TechnologyType) => void;
 }
 
-const TechnologyCard = ({ technology,selectedTechs, setSelectedTechs}: TechnologyCardProps) => {
-    const [isSelected, setIsSelected] = useState(false);
+const TechnologyCard = ({ technology, selectedTechs, onAddTechnology }: TechnologyCardProps) => {
+  const isSelected = selectedTechs.some((item) => item.id === technology.id);
+  const isCategoryTaken = selectedTechs.some(
+    (item) => item.category === technology.category && item.id !== technology.id,
+  );
+
   const handleAddToStack = () => {
-      setIsSelected(true);
- toast.success(`${technology.name} is added to your stack!!!`);
+    if (isSelected || isCategoryTaken) return;
 
-setSelectedTechs([...selectedTechs,technology]);
+    onAddTechnology(technology);
+    toast.success(`${technology.name} is added to your stack!!!`);
+  };
 
-
-    };
-
-    return (
-
-        <>
-        
-          <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-4 shadow-sm  transition duration-300 ease-in-out hover:-translate-y-4">
+  return (
+    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition duration-300 ease-in-out hover:-translate-y-4">
       <div className="flex items-center justify-between">
         <div className="flex h-12 w-12 items-center justify-center">
           <img
@@ -38,17 +36,14 @@ setSelectedTechs([...selectedTechs,technology]);
         </span>
       </div>
 
-
       <h2 className="mt-4 text-lg font-bold text-gray-900">
         {technology.name}
       </h2>
-
 
       <p className="mt-2 min-h-[60px] text-sm leading-5 text-gray-500">
         {technology.description}
       </p>
 
-  
       <div className="my-3 border-t border-gray-100" />
 
       <div className="flex items-center justify-between text-xs">
@@ -69,16 +64,13 @@ setSelectedTechs([...selectedTechs,technology]);
       <button
         onClick={handleAddToStack}
         type="button"
-        className={`mt-4 w-full rounded-lg bg-[#080d1b] py-2.5 text-sm font-medium text-white transition hover:bg-gray-800`}
-        disabled={isSelected}
+        className={`mt-4 w-full rounded-lg bg-[#080d1b] py-2.5 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-slate-300`}
+        disabled={isSelected || isCategoryTaken}
       >
         {isSelected ? "Added to your stack" : "Add to Stack"}
       </button>
     </div>
-        
-        
-        </>
-    )
-}
+  );
+};
 
 export default TechnologyCard;

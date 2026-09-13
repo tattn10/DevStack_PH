@@ -9,8 +9,24 @@ export interface TechnologiesProps {
 
 const TechnologiesSection = ({ TechnologiesProp }: TechnologiesProps) => {
   const technologies = use(TechnologiesProp);
- 
+
   const [selectedTechs, setSelectedTechs] = useState<TechnologyType[]>([]);
+
+  const handleAddTechnology = (technology: TechnologyType) => {
+    setSelectedTechs((prev) => {
+      const categoryAlreadySelected = prev.some(
+        (item) => item.category === technology.category,
+      );
+
+      if (categoryAlreadySelected) {
+        return prev.map((item) =>
+          item.category === technology.category ? technology : item,
+        );
+      }
+
+      return [...prev, technology];
+    });
+  };
 
   return (
     <>
@@ -22,7 +38,12 @@ const TechnologiesSection = ({ TechnologiesProp }: TechnologiesProps) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:col-span-3">
             {technologies.map((technology) => (
-              <TechnologyCard key={technology.id} technology={technology} selectedTechs={selectedTechs} setSelectedTechs={setSelectedTechs} />
+              <TechnologyCard
+                key={technology.id}
+                technology={technology}
+                selectedTechs={selectedTechs}
+                onAddTechnology={handleAddTechnology}
+              />
             ))}
           </div>
           <div className="md:col-span-1 flex justify-center">

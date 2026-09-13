@@ -8,4 +8,7 @@
 ## React + TypeScript + Vite + Tailwind + React Toastify
 
 # Answers---
+-JSX is Javascript Object Notation used for react. It is a way of writing HTML through JS. <br>
+-props are the parameters of a react component and state is the memory of a react component that can be changed and re rendered. <br>
 -
+

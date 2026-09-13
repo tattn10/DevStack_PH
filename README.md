@@ -1,6 +1,11 @@
 # DevStack_PH
-
-## React + TypeScript + Vite
+-This project includes adding and removing different technology cards and building your own stack.
+# Features--
+  -Technology data fetching through react use hook
+  -Adding card through react state, lift state, conditional rendering etc.
+  -Removing individual card and all cards at once
+  
+## React + TypeScript + Vite + Tailwind + React Toastify
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
